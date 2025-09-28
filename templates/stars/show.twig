@@ -1,0 +1,18 @@
+<h1>Star #{{ star.id }}</h1>
+
+<p><strong>Name:</strong> {{ star.name }}</p>
+<p><strong>Type:</strong> {{ star.type }}</p>
+<p><strong>Temperature:</strong> {{ star.temperature }}</p>
+
+<p>
+  {% if star.image %}
+    <img src="/uploads/{{ star.image }}" alt="Star {{ star.name }}" width="240">
+  {% else %}
+    (no uploaded file)
+  {% endif %}
+</p>
+
+<p>
+  <a href="/stars/{{ star.id }}/edit">Edit</a> |
+  <a href="/stars">Back</a>
+</p>

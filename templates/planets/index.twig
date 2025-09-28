@@ -1,0 +1,38 @@
+<h1>Planets</h1>
+
+<p><a href="/planets/new">Create New Planet</a></p>
+
+<table border="1" cellpadding="6" cellspacing="0">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Preview</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in planets %}
+      <tr>
+        <td>{{ p.id }}</td>
+        <td>{{ p.name }}</td>
+        <td>{{ p.type }}</td>
+        <td>
+          {% if p.image %}
+            <img src="/uploads/{{ p.image }}" alt="Planet {{ p.name }}" width="80">
+          {% else %}
+            (no file)
+          {% endif %}
+        </td>
+        <td>
+          <a href="/planets/{{ p.id }}">Show</a> |
+          <a href="/planets/{{ p.id }}/edit">Edit</a> |
+          <form action="/planets/{{ p.id }}?_method=DELETE" method="POST" style="display:inline">
+            <button type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>

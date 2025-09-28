@@ -1,0 +1,36 @@
+<h1>Images</h1>
+
+<p><a href="/images/new">Create New Image</a></p>
+
+<table border="1" cellpadding="6" cellspacing="0">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Variant</th>
+      <th>Preview</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for image in images %}
+      <tr>
+        <td>{{ image.id }}</td>
+        <td>{{ image.title }}</td>
+        <td>{{ image.variantId }}</td>
+        <td>
+          {% if image.extension %}
+            <img src="/images/{{ image.id }}{{ image.extension }}" alt="Image {{ image.id }}" width="80">
+          {% else %}
+            (no file)
+          {% endif %}
+        </td>
+        <td>
+          <a href="/images/{{ image.id }}">Show</a> |
+          <a href="/images/{{ image.id }}/edit">Edit</a> |
+          <a href="/images/{{ image.id }}/delete">Delete</a>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>

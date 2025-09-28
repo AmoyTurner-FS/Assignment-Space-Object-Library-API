@@ -1,4 +1,4 @@
-const { Planet } = require("../models");
+const { Star } = require("../models");
 
 function wantsJson(req) {
   const ct = req.headers["content-type"] || "";
@@ -8,11 +8,11 @@ function wantsJson(req) {
 module.exports = {
   async index(req, res) {
     try {
-      const planets = await Planet.findAll({ order: [["id", "ASC"]] });
-      if (wantsJson(req)) return res.status(200).json(planets);
+      const stars = await Star.findAll({ order: [["id", "ASC"]] });
+      if (wantsJson(req)) return res.status(200).json(stars);
       return res
         .status(200)
-        .render("planets/index.twig", { title: "Planets", planets });
+        .render("stars/index.twig", { title: "Stars", stars });
     } catch (err) {
       if (wantsJson(req)) return res.status(500).json({ error: err.message });
       return res.status(500).render("error.twig", { message: err.message });
@@ -21,31 +21,29 @@ module.exports = {
 
   async create(req, res) {
     try {
-      const { name, type } = req.body;
+      const { name, type, temperature } = req.body;
       const image = req.file ? req.file.filename : null;
-      const created = await Planet.create({ name, type, image });
+      const created = await Star.create({ name, type, temperature, image });
       if (wantsJson(req)) return res.status(201).json(created);
-      return res.redirect("/planets");
+      return res.redirect("/stars");
     } catch (err) {
       if (wantsJson(req)) return res.status(400).json({ error: err.message });
-      return res
-        .status(400)
-        .render("planets/form.twig", { error: err.message });
+      return res.status(400).render("error.twig", { message: err.message });
     }
   },
 
   async show(req, res) {
     try {
-      const planet = await Planet.findByPk(req.params.id);
-      if (!planet) {
+      const star = await Star.findByPk(req.params.id);
+      if (!star) {
         if (wantsJson(req))
-          return res.status(404).json({ error: "Planet not found" });
+          return res.status(404).json({ error: "Star not found" });
         return res.status(404).render("404.twig", { title: "Not Found" });
       }
-      if (wantsJson(req)) return res.status(200).json(planet);
+      if (wantsJson(req)) return res.status(200).json(star);
       return res
         .status(200)
-        .render("planets/show.twig", { title: planet.name, planet });
+        .render("stars/show.twig", { title: star.name, star });
     } catch (err) {
       if (wantsJson(req)) return res.status(500).json({ error: err.message });
       return res.status(500).render("error.twig", { message: err.message });
@@ -54,17 +52,17 @@ module.exports = {
 
   async update(req, res) {
     try {
-      const planet = await Planet.findByPk(req.params.id);
-      if (!planet) {
+      const star = await Star.findByPk(req.params.id);
+      if (!star) {
         if (wantsJson(req))
-          return res.status(404).json({ error: "Planet not found" });
+          return res.status(404).json({ error: "Star not found" });
         return res.status(404).render("404.twig", { title: "Not Found" });
       }
-      const { name, type } = req.body;
-      const image = req.file ? req.file.filename : planet.image;
-      await planet.update({ name, type, image });
-      if (wantsJson(req)) return res.status(200).json(planet);
-      return res.redirect("/planets");
+      const { name, type, temperature } = req.body;
+      const image = req.file ? req.file.filename : star.image;
+      await star.update({ name, type, temperature, image });
+      if (wantsJson(req)) return res.status(200).json(star);
+      return res.redirect("/stars");
     } catch (err) {
       if (wantsJson(req)) return res.status(400).json({ error: err.message });
       return res.status(400).render("error.twig", { message: err.message });
@@ -73,15 +71,15 @@ module.exports = {
 
   async remove(req, res) {
     try {
-      const planet = await Planet.findByPk(req.params.id);
-      if (!planet) {
+      const star = await Star.findByPk(req.params.id);
+      if (!star) {
         if (wantsJson(req))
-          return res.status(404).json({ error: "Planet not found" });
+          return res.status(404).json({ error: "Star not found" });
         return res.status(404).render("404.twig", { title: "Not Found" });
       }
-      await planet.destroy();
+      await star.destroy();
       if (wantsJson(req)) return res.status(204).send();
-      return res.redirect("/planets");
+      return res.redirect("/stars");
     } catch (err) {
       if (wantsJson(req)) return res.status(500).json({ error: err.message });
       return res.status(500).render("error.twig", { message: err.message });

@@ -6,14 +6,14 @@ services:
       - wdv442
     volumes:
       - ./var:/var/lib/mysql
-    # NOTE: use of "mysql_native_password" is not recommended: https://dev.mysql.com/doc/refman/8.0/en/upgrading-from-previous-series.html#upgrade-caching-sha2-password
-    # (this is just an example, not intended to be a production configuration)
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: asl
       MYSQL_PASSWORD: asl
       MYSQL_DATABASE: wdv442_space_tracker
     command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - "3307:3306"
   wdv442-node:
     image: node:latest
     user: node

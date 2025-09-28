@@ -1,0 +1,17 @@
+<h1>Image #{{ image.id }}</h1>
+
+<p><strong>Title:</strong> {{ image.title }}</p>
+<p><strong>Variant ID:</strong> {{ image.variantId }}</p>
+
+<p>
+  {% if image.extension %}
+    <img src="/images/{{ image.id }}{{ image.extension }}" alt="Image {{ image.id }}" width="240">
+  {% else %}
+    (no uploaded file)
+  {% endif %}
+</p>
+
+<p>
+  <a href="/images/{{ image.id }}/edit">Edit</a> |
+  <a href="/images">Back</a>
+</p>

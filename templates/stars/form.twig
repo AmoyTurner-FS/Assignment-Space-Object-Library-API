@@ -1,0 +1,24 @@
+<form enctype="multipart/form-data" method="POST" action="/stars{% if star and star.id %}/{{ star.id }}?_method=PUT{% endif %}">
+  {% if star and star.id %}
+    <input type="hidden" name="id" value="{{ star.id }}">
+  {% endif %}
+  <div>
+    <label>Name:</label>
+    <input type="text" name="name" value="{{ star.name ?? '' }}" required>
+  </div>
+  <div>
+    <label>Type:</label>
+    <input type="text" name="type" value="{{ star.type ?? '' }}" required>
+  </div>
+  <div>
+    <label>Temperature:</label>
+    <input type="number" name="temperature" value="{{ star.temperature ?? '' }}" required>
+  </div>
+  <div>
+    <label for="image">Upload Image:</label><br>
+    <input type="file" name="image" id="image" accept="image/*">
+  </div>
+  <div>
+    <button type="submit">Save</button>
+  </div>
+</form>

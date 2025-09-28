@@ -1,18 +1,12 @@
-// Load in Express framework
-const express = require(`express`)
+const express = require("express");
+const router = express.Router();
+const planetCtrl = require("../controllers/planet.js");
+const { upload } = require("../index.js");
 
-// Load in our controller/action instances
-const planetCtlr = require(`../controllers/planet.js`)
+router.get("/", planetCtrl.index);
+router.post("/", upload.single("image"), planetCtrl.create);
+router.get("/:id", planetCtrl.show);
+router.put("/:id", upload.single("image"), planetCtrl.update);
+router.delete("/:id", planetCtrl.remove);
 
-// Create a new Router instance and call it "router"
-const router = new express.Router()
-
-// RESTful resource mappings
-router.get(`/`, planetCtlr.index)
-router.post(`/`, planetCtlr.create)
-router.get(`/:id`, planetCtlr.show) 
-router.put(`/:id`, planetCtlr.update) 
-router.delete(`/:id`, planetCtlr.remove) 
-
-// export "router"
-module.exports = router
+module.exports = router;

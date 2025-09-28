@@ -1,0 +1,38 @@
+<h1>Galaxies</h1>
+
+<p><a href="/galaxies/new">Create New Galaxy</a></p>
+
+<table border="1" cellpadding="6" cellspacing="0">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Preview</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for g in galaxies %}
+      <tr>
+        <td>{{ g.id }}</td>
+        <td>{{ g.name }}</td>
+        <td>{{ g.description }}</td>
+        <td>
+          {% if g.image %}
+            <img src="/uploads/{{ g.image }}" alt="Galaxy {{ g.name }}" width="80">
+          {% else %}
+            (no file)
+          {% endif %}
+        </td>
+        <td>
+          <a href="/galaxies/{{ g.id }}">Show</a> |
+          <a href="/galaxies/{{ g.id }}/edit">Edit</a> |
+          <form action="/galaxies/{{ g.id }}?_method=DELETE" method="POST" style="display:inline">
+            <button type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>

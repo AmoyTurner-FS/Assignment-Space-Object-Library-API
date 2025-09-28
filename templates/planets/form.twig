@@ -1,0 +1,20 @@
+<form enctype="multipart/form-data" method="POST" action="/planets{% if planet and planet.id %}/{{ planet.id }}?_method=PUT{% endif %}">
+  {% if planet and planet.id %}
+    <input type="hidden" name="id" value="{{ planet.id }}">
+  {% endif %}
+  <div>
+    <label>Name:</label>
+    <input type="text" name="name" value="{{ planet.name ?? '' }}" required>
+  </div>
+  <div>
+    <label>Type:</label>
+    <input type="text" name="type" value="{{ planet.type ?? '' }}" required>
+  </div>
+  <div>
+    <label for="image">Upload Image:</label><br>
+    <input type="file" name="image" id="image" accept="image/*">
+  </div>
+  <div>
+    <button type="submit">Save</button>
+  </div>
+</form>

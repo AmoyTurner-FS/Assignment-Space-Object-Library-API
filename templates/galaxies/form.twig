@@ -1,0 +1,20 @@
+<form enctype="multipart/form-data" method="POST" action="/galaxies{% if galaxy and galaxy.id %}/{{ galaxy.id }}?_method=PUT{% endif %}">
+  {% if galaxy and galaxy.id %}
+    <input type="hidden" name="id" value="{{ galaxy.id }}">
+  {% endif %}
+  <div>
+    <label>Name:</label>
+    <input type="text" name="name" value="{{ galaxy.name ?? '' }}" required>
+  </div>
+  <div>
+    <label>Description:</label>
+    <textarea name="description" rows="4" cols="40" required>{{ galaxy.description ?? '' }}</textarea>
+  </div>
+  <div>
+    <label for="image">Upload Image:</label><br>
+    <input type="file" name="image" id="image" accept="image/*">
+  </div>
+  <div>
+    <button type="submit">Save</button>
+  </div>
+</form>

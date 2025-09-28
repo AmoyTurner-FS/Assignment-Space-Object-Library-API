@@ -1,0 +1,17 @@
+<h1>Galaxy #{{ galaxy.id }}</h1>
+
+<p><strong>Name:</strong> {{ galaxy.name }}</p>
+<p><strong>Description:</strong> {{ galaxy.description }}</p>
+
+<p>
+  {% if galaxy.image %}
+    <img src="/uploads/{{ galaxy.image }}" alt="Galaxy {{ galaxy.name }}" width="240">
+  {% else %}
+    (no uploaded file)
+  {% endif %}
+</p>
+
+<p>
+  <a href="/galaxies/{{ galaxy.id }}/edit">Edit</a> |
+  <a href="/galaxies">Back</a>
+</p>
