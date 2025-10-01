@@ -1,40 +1,24 @@
+{% extends "../layout.twig" %}
+{% block content %}
 <h1>Stars</h1>
-
 <p><a href="/stars/new">Create New Star</a></p>
-
 <table border="1" cellpadding="6" cellspacing="0">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Temperature</th>
-      <th>Preview</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for s in stars %}
-      <tr>
-        <td>{{ s.id }}</td>
-        <td>{{ s.name }}</td>
-        <td>{{ s.type }}</td>
-        <td>{{ s.temperature }}</td>
-        <td>
-          {% if s.image %}
-            <img src="/uploads/{{ s.image }}" alt="Star {{ s.name }}" width="80">
-          {% else %}
-            (no file)
-          {% endif %}
-        </td>
-        <td>
-          <a href="/stars/{{ s.id }}">Show</a> |
-          <a href="/stars/{{ s.id }}/edit">Edit</a> |
-          <form action="/stars/{{ s.id }}?_method=DELETE" method="POST" style="display:inline">
-            <button type="submit">Delete</button>
-          </form>
-        </td>
-      </tr>
-    {% endfor %}
-  </tbody>
+<thead><tr><th>ID</th><th>Name</th><th>Type</th><th>Temp (K)</th><th>Preview</th><th>Actions</th></tr></thead>
+<tbody>
+{% for s in stars %}
+<tr>
+<td>{{ s.id }}</td>
+<td>{{ s.name }}</td>
+<td>{{ s.type }}</td>
+<td>{{ s.temperature }}</td>
+<td>{% if s.image %}<img src="/uploads/{{ s.image }}" width="80">{% else %}(no file){% endif %}</td>
+<td>
+  <a href="/stars/{{ s.id }}">Show</a> |
+  <a href="/stars/{{ s.id }}/edit">Edit</a> |
+  <form action="/stars/{{ s.id }}?_method=DELETE" method="POST" style="display:inline"><button type="submit">Delete</button></form>
+</td>
+</tr>
+{% endfor %}
+</tbody>
 </table>
+{% endblock %}

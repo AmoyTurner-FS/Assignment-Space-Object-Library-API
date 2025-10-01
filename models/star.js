@@ -1,26 +1,20 @@
 "use strict";
-const { Model } = require("sequelize");
+const { Model, DataTypes } = require("sequelize");
 
-module.exports = (sequelize, DataTypes) => {
-  class Star extends Model {
-    static associate(models) {
-      Star.belongsTo(models.Galaxy, { foreignKey: "GalaxyId", as: "galaxy" });
-      Star.belongsToMany(models.Planet, {
-        through: models.StarsPlanets,
-        foreignKey: "StarId",
-        otherKey: "PlanetId",
-        as: "planets",
-      });
-    }
-  }
+module.exports = (sequelize) => {
+  class Star extends Model {}
   Star.init(
     {
       name: { type: DataTypes.STRING, allowNull: false },
-      size: { type: DataTypes.INTEGER, allowNull: true },
-      description: { type: DataTypes.TEXT, allowNull: true },
-      GalaxyId: { type: DataTypes.INTEGER, allowNull: true },
+      type: { type: DataTypes.STRING, allowNull: false },
+      temperature: { type: DataTypes.INTEGER },
+      image: { type: DataTypes.STRING },
     },
-    { sequelize, modelName: "Star" }
+    {
+      sequelize,
+      modelName: "Star",
+      tableName: "stars",
+    }
   );
   return Star;
 };

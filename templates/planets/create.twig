@@ -1,2 +1,5 @@
+{% extends "../layout.twig" %}
+{% block content %}
 <h1>New Planet</h1>
-{% include "planets/form.twig" with { planet: planet } %}
+{% include "planets/form.twig" with { planet: null } %}
+{% endblock %}

@@ -1,10 +1,10 @@
 {
   "development": {
-    "username": "asl",
-    "password": "asl",
+    "username": "root",
+    "password": "root",
     "database": "wdv442_space_tracker",
-    "host": "127.0.0.1",
-    "port": 3307,
+    "host": "wdv442-mysql",
+    "port": 3306,
     "dialect": "mysql"
   },
   "test": {
